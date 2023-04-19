@@ -1,54 +1,62 @@
 package jp.co.axa.apidemo.controllers;
 
-import jp.co.axa.apidemo.entities.Employee;
+import java.util.List;
+import javax.validation.Valid;
+import jp.co.axa.apidemo.constant.Path;
+import jp.co.axa.apidemo.dto.EmployeeDTO;
 import jp.co.axa.apidemo.services.EmployeeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+/**
+ * Employee rest controller
+ */
+@Slf4j
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping(Path.API_PATH)
 public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
 
-    public void setEmployeeService(EmployeeService employeeService) {
-        this.employeeService = employeeService;
+    @GetMapping(Path.EMPLOYEES_BASE_PATH)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<EmployeeDTO> getEmployees() {
+        return employeeService.retrieveEmployees();
     }
 
-    @GetMapping("/employees")
-    public List<Employee> getEmployees() {
-        List<Employee> employees = employeeService.retrieveEmployees();
-        return employees;
-    }
-
-    @GetMapping("/employees/{employeeId}")
-    public Employee getEmployee(@PathVariable(name="employeeId")Long employeeId) {
+    @GetMapping(Path.EMPLOYEE_PATH)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public EmployeeDTO getEmployee(@PathVariable(name = "employeeId") Long employeeId) {
         return employeeService.getEmployee(employeeId);
     }
 
-    @PostMapping("/employees")
-    public void saveEmployee(Employee employee){
+    @PostMapping(Path.EMPLOYEES_BASE_PATH)
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    public void saveEmployee(@RequestBody @Valid EmployeeDTO employee) {
         employeeService.saveEmployee(employee);
-        System.out.println("Employee Saved Successfully");
+        log.info("Employee, id: {} Saved Successfully", employee.getId());
     }
 
-    @DeleteMapping("/employees/{employeeId}")
-    public void deleteEmployee(@PathVariable(name="employeeId")Long employeeId){
+    @DeleteMapping(Path.EMPLOYEE_PATH)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseBody
+    public void deleteEmployee(@PathVariable(name = "employeeId") Long employeeId) {
         employeeService.deleteEmployee(employeeId);
-        System.out.println("Employee Deleted Successfully");
+        log.info("Employee, id: {} Deleted Successfully", employeeId);
     }
 
-    @PutMapping("/employees/{employeeId}")
-    public void updateEmployee(@RequestBody Employee employee,
-                               @PathVariable(name="employeeId")Long employeeId){
-        Employee emp = employeeService.getEmployee(employeeId);
-        if(emp != null){
-            employeeService.updateEmployee(employee);
-        }
-
+    @PutMapping(Path.EMPLOYEE_PATH)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseBody
+    public void updateEmployee(
+            @RequestBody @Valid EmployeeDTO employee, @PathVariable(name = "employeeId") Long employeeId) {
+        employeeService.updateEmployee(employee);
+        log.info("Employee, id: {} Updated Successfully", employeeId);
     }
-
 }
