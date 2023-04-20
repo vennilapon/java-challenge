@@ -29,11 +29,6 @@ public class Path {
     public static final String API_PATH = PATH_SEPARATOR + API + PATH_SEPARATOR + VERSION;
 
     /**
-     * employee id
-     */
-    public static final String EMPLOYEE_ID = "{employeeId}";
-
-    /**
      * employees base path (/employees)
      */
     public static final String EMPLOYEES_BASE_PATH = PATH_SEPARATOR + "employees";
@@ -41,5 +36,5 @@ public class Path {
     /**
      * employee Path (/employees/{employeeId})
      */
-    public static final String EMPLOYEE_PATH = EMPLOYEES_BASE_PATH + PATH_SEPARATOR + EMPLOYEE_ID;
+    public static final String EMPLOYEE_PATH = EMPLOYEES_BASE_PATH + PATH_SEPARATOR + "{employeeId}";
 }

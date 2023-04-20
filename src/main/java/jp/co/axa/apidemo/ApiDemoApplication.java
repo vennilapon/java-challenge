@@ -3,10 +3,10 @@ package jp.co.axa.apidemo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import org.springframework.cache.annotation.EnableCaching;
 
 @Slf4j
-@EnableSwagger2
+@EnableCaching
 @SpringBootApplication
 public class ApiDemoApplication {
 

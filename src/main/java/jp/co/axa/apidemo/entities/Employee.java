@@ -6,6 +6,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.*;
 
+/**
+ * The entity class for the dto {@link jp.co.axa.apidemo.dto.EmployeeDTO} and is mapped by {@link jp.co.axa.apidemo.mapper.EmployeeMapper}
+ */
 @Data
 @Entity
 @Builder
@@ -15,6 +18,7 @@ import lombok.*;
 @Table(name = "EMPLOYEE")
 public class Employee {
 
+    // the id is the primary key in EMPLOYEE table
     @Id
     private Long id;
 

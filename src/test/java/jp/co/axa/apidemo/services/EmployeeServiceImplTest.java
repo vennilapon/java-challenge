@@ -1,9 +1,12 @@
 package jp.co.axa.apidemo.services;
 
+import static jp.co.axa.apidemo.constant.ApiConstants.PAGINATION_RESULTS;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import jp.co.axa.apidemo.dto.EmployeeDTO;
 import jp.co.axa.apidemo.entities.Employee;
@@ -13,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -35,7 +39,7 @@ class EmployeeServiceImplTest {
     @Test
     void retrieveEmployees_whenCalled_success() {
         // mock employee repository find all
-        List<Employee> employeeList = List.of(
+        Page<Employee> employeeList = new PageImpl(Arrays.asList(
                 Employee.builder()
                         .id(1L)
                         .name("Vennila")
@@ -47,8 +51,8 @@ class EmployeeServiceImplTest {
                         .name("Gowri")
                         .department("IT")
                         .salary(12000)
-                        .build());
-        Mockito.when(employeeRepository.findAll()).thenReturn(employeeList);
+                        .build()));
+        when(employeeRepository.findAll((Pageable) any())).thenReturn(employeeList);
         // expected result
         List<EmployeeDTO> expectedResult = List.of(
                 EmployeeDTO.builder()
@@ -64,9 +68,10 @@ class EmployeeServiceImplTest {
                         .salary(12000)
                         .build());
         // actual method call
-        List<EmployeeDTO> actualResult = employeeService.retrieveEmployees();
+        Map<String, Object> actualResult = employeeService.retrieveEmployees(1, 5);
+
         // Assertions
-        Assertions.assertEquals(actualResult, expectedResult);
+        Assertions.assertEquals(actualResult.get(PAGINATION_RESULTS), expectedResult);
     }
 
     @Test
