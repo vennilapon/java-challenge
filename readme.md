@@ -12,6 +12,7 @@ Application (with the embedded H2 database) is ready to be used ! You can access
 
 
 
+
 ### Instructions
 
 - download the zip file of this project
@@ -19,6 +20,8 @@ Application (with the embedded H2 database) is ready to be used ! You can access
 - clone your repository in a folder on your machine
 - extract the zip file in this folder
 - commit and push
+- use `mvn spotless:check` and `mvn spotless:apply` for the code format 
+- Find credentials from `application.properties` file
 
 - Enhance the code in any ways you can see, you are free! Some possibilities:
   - Add tests
@@ -29,6 +32,7 @@ Application (with the embedded H2 database) is ready to be used ! You can access
   - Fix any bug you might find
 - Edit readme.md and add any comments. It can be about what you did, what you would have done if you had more time, etc.
 - Send us the link of your repository.
+
 
 #### Restrictions
 - use java 8
@@ -43,10 +47,24 @@ Application (with the embedded H2 database) is ready to be used ! You can access
 - Is the application running as expected
 - No performance issues
 
-#### Your experience in Java
+#### My experience
 
-Please let us know more about your Java experience in a few sentences. For example:
+- I have around 4 years experience in Java and I started to use Spring Boot Webflux for last 6 months
+- I am good in analytics and logics
+- I have experience in working with Insurance projects
 
-- I have 3 years experience in Java and I started to use Spring Boot from last year
-- I'm a beginner and just recently learned Spring Boot
-- I know Spring Boot very well and have been using it for many years
+#### Improvements done from the master branch
+- Bug fixes 
+- Exception Handling
+- Spring documentation
+- Adding comments
+- Security for controllers
+- Caching Logics
+- Unit tests and Integration tests for controller
+- Pagination for GET ALL method
+- Spotless code format plugin to maintain same code format 
+
+#### Improvements I would like to do
+- using docker containers
+- Jenkins deployment
+- Sonar and Jacoco integrations
